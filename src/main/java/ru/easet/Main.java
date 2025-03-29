@@ -8,7 +8,8 @@ public class Main {
         var module1 = new Module1();
         //module1.PracticalTask_1_1(); // Практические задания 1.1 - При запуске в дебаг сработают точки остановки.
 
-        module1.PracticalTask_1_2(); // Практические задания 1.2
+        //module1.PracticalTask_1_2(); // Практические задания 1.2
 
+        module1.PracticalTask_1_3(); // Практические задания 1.3
     }
 }

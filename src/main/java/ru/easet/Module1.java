@@ -1,5 +1,7 @@
 package ru.easet;
 
+import java.util.Scanner;
+
 public class Module1 {
 
     public void PracticalTask_1_1() {
@@ -235,4 +237,236 @@ public class Module1 {
 
         System.out.println("Проверка значений после Задачи 11");
     }
+
+    public void PracticalTask_1_3() {
+        Scanner scanner = new Scanner(System.in);
+
+        // ===== Вывод данных =====
+
+        System.out.println("Привет, мир!"); // Задача 1
+
+        int number = 42; // Задача 2
+        System.out.println("Ответ на главный вопрос жизни, вселенной и всего такого: " + number);
+
+        double pi = 3.14159; // Задача 3
+        System.out.printf("Число Пи равно %.2f%n", pi);
+
+        String name = "Катя"; // Задача 4
+        int age = 19;
+        System.out.println("Имя: " + name + ", возраст: " + age);
+
+        char symbol = 'Ж'; // Задача 5
+        System.out.println(symbol + " – символ гордости!!");
+
+        boolean truth = true; // Задача 6
+        System.out.println("Это правда? " + truth);
+
+        long bigNumber = 123_456_789_000L; // Задача 7
+        System.out.println("Большое число: " + bigNumber);
+
+        float fraction = 9.8765f; // Задача 8
+        System.out.printf("Дробное число: %.2f%n", fraction);
+
+        String city = "Новосибирск"; // Задача 9
+        System.out.println("Местоположение: " + city);
+
+        int x = 90; // Задача 10
+        int y = 12;
+        System.out.println(x + " - " + y + " = " + (x - y));
+
+        // ===== Ввод данных =====
+
+        // Ввод 1
+        System.out.print("Введите ваше имя: ");
+        String userName = scanner.nextLine();
+        System.out.print("Привет, " + userName + "!\n");
+
+        // Ввод 2
+        System.out.print("Введите первое число: ");
+        int n1 = scanner.nextInt();
+        System.out.print("Введите второе число: ");
+        int n2 = scanner.nextInt();
+        System.out.println("Сумма: " + (n1 + n2));
+        System.out.println("Разность: " + (n1 - n2));
+        System.out.println("Произведение: " + (n1 * n2));
+        System.out.println("Деление: " + (n1 / n2));
+
+        // Ввод 3
+        System.out.print("Введите число для таблицы умножения: ");
+        int mult = scanner.nextInt();
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(mult + " * " + i + " = " + (mult * i));
+        }
+
+        // Ввод 4
+        System.out.print("Введите оценку студента (1–5): ");
+        int grade = scanner.nextInt();
+        if (grade == 5) System.out.println("Отлично!");
+        else if (grade == 4) System.out.println("Хорошо");
+        else if (grade == 3) System.out.println("Удовлетворительно");
+        else System.out.println("Неудовлетворительно");
+
+        scanner.nextLine(); // очистка буфера
+
+        // Ввод 5
+        System.out.print("Введите своё имя: ");
+        String fullName = scanner.nextLine();
+        System.out.print("Введите свой возраст: ");
+        int userAge = scanner.nextInt();
+        scanner.nextLine(); // очистка
+        System.out.print("Введите интересный факт о себе: ");
+        String fact = scanner.nextLine();
+        System.out.println("Пользователь: " + fullName + ", возраст: " + userAge + ", факт: " + fact);
+
+        // ===== Условные операторы с вводом =====
+
+        // Условие 1
+        System.out.print("Введите ваш возраст: ");
+        int personAge = scanner.nextInt();
+        if (personAge >= 18) {
+            System.out.println("Если возраст человека равен " + personAge + ", то он совершеннолетний");
+        } else {
+            System.out.println("Если возраст человека равен " + personAge + ", то он не достиг совершеннолетия");
+        }
+
+        // Условие 2
+        System.out.print("Введите температуру на улице: ");
+        int temp = scanner.nextInt();
+        if (temp < 10) {
+            System.out.println("На улице " + temp + " градусов, нужно надеть шапку");
+        } else {
+            System.out.println("На улице " + temp + " градусов, можно идти без шапки");
+        }
+
+        // Условие 3
+        System.out.print("Введите вашу скорость (км/ч): ");
+        int speed = scanner.nextInt();
+        if (speed > 110) {
+            System.out.println("Если скорость " + speed + ", то придется заплатить штраф");
+        } else {
+            System.out.println("Если скорость " + speed + ", то штраф не придет");
+        }
+
+        // Условие 4
+        System.out.print("Введите возраст для определения учреждения: ");
+        int checkAge = scanner.nextInt();
+        if (checkAge < 3) System.out.println("Если возраст человека равен " + checkAge + ", то ему в ясли");
+        else if (checkAge <= 6) System.out.println("...в детский сад");
+        else if (checkAge <= 18) System.out.println("...в школу");
+        else if (checkAge < 24) System.out.println("...в университет");
+        else if (checkAge <= 60) System.out.println("...пора на работу");
+        else System.out.println("...выходит на пенсию");
+
+        // Условие 5
+        System.out.print("Введите рост ребёнка в см: ");
+        int height = scanner.nextInt();
+        if (height < 100) System.out.println("Если рост ребенка равен " + height + ", то ему нельзя кататься");
+        else if (height < 140) System.out.println("...можно кататься в сопровождении взрослого");
+        else System.out.println("...можно кататься без сопровождения");
+
+        // Условие 6
+        System.out.print("Введите количество занятых мест в поезде: ");
+        int occupied = scanner.nextInt();
+        int total = 2500;
+        int seats = 344;
+        if (occupied < seats) {
+            System.out.println("Есть сидячее место");
+        } else if (occupied < total) {
+            System.out.println("Сидячих мест нет, есть стоячее");
+        } else {
+            System.out.println("Поезд полностью забит");
+        }
+
+        // Условие 7
+        System.out.print("Введите два числа");
+        System.out.print("Первое:");
+        int a = scanner.nextInt();
+        System.out.print("Второе:");
+        int b = scanner.nextInt();
+        System.out.println("Большее число: " + (a > b ? a : b));
+
+        // Условие 8
+        System.out.print("Введите три числа: ");
+        System.out.print("Первое:");
+        int m1 = scanner.nextInt();
+        System.out.print("Второе:");
+        int m2 = scanner.nextInt();
+        System.out.print("Третье:");
+        int m3 = scanner.nextInt();
+        int min = m1;
+        if (m2 < min) min = m2;
+        if (m3 < min) min = m3;
+        System.out.println("Меньшее число: " + min);
+
+        // Условие 9
+        System.out.print("Введите ОС (0 – iOS, 1 – Android): ");
+        int clientOS = scanner.nextInt();
+        if (clientOS == 0) {
+            System.out.println("Установите версию приложения для iOS");
+        } else {
+            System.out.println("Установите версию приложения для Android");
+        }
+
+        // Условие 10
+        System.out.print("Введите год выпуска телефона: ");
+        int phoneYear = scanner.nextInt();
+        if (clientOS == 0) {
+            if (phoneYear < 2020)
+                System.out.println("Скачайте лайт версию приложения для iOS по ссылке");
+            else
+                System.out.println("Установите версию приложения для iOS");
+        } else {
+            if (phoneYear < 2020)
+                System.out.println("Скачайте лайт версию приложения для Android по ссылке");
+            else
+                System.out.println("Установите версию приложения для Android");
+        }
+
+        // Условие 11
+        System.out.print("Введите год для проверки на високосность: ");
+        int year = scanner.nextInt();
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+            System.out.println(year + " год является високосным");
+        } else {
+            System.out.println(year + " год не является високосным");
+        }
+
+        // Условие 12
+        System.out.print("Введите дистанцию до клиента: ");
+        int deliveryDistance = scanner.nextInt();
+        int days = 1;
+        if (deliveryDistance > 150) {
+            System.out.println("Доставки нет");
+        } else {
+            if (deliveryDistance > 80) days += 2;
+            else if (deliveryDistance > 50) days += 1;
+            System.out.println("Потребуется дней: " + days);
+        }
+
+        // Условие 13
+        System.out.print("Введите номер месяца (1–12): ");
+        int monthNumber = scanner.nextInt();
+        switch (monthNumber) {
+            case 12, 1, 2 -> System.out.println("Зима");
+            case 3, 4, 5 -> System.out.println("Весна");
+            case 6, 7, 8 -> System.out.println("Лето");
+            case 9, 10, 11 -> System.out.println("Осень");
+            default -> System.out.println("Такого месяца не существует");
+        }
+
+        // Условие 14
+        System.out.print("Введите номер действия (1–5): ");
+        int action = scanner.nextInt();
+        switch (action) {
+            case 1 -> System.out.println("Найти билеты на самолет");
+            case 2 -> System.out.println("Купить билеты на самолет");
+            case 3 -> System.out.println("Сдать ранее купленные билеты");
+            case 4 -> System.out.println("Форма регистрации на рейс");
+            case 5 -> System.out.println("Связаться с поддержкой");
+            default -> System.out.println("Такого действия нет");
+        }
+
+        System.out.println("Практическое задание 1.3 завершено!");
+    }
+
 }
