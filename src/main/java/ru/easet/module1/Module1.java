@@ -1,4 +1,4 @@
-package ru.easet;
+package ru.easet.module1;
 
 import java.util.Scanner;
 
@@ -468,5 +468,195 @@ public class Module1 {
 
         System.out.println("Практическое задание 1.3 завершено!");
     }
+
+    public void PracticalTask_1_4() {
+
+        // ===== Практика. Операторы циклов for и while. =====
+        // Задача 1
+        int salary = 80000;
+        int yearAmount = 0;
+
+        for (int i = 0; i < 12; i++) {
+            yearAmount += salary;
+        }
+        System.out.println("Заработал за 12 месяцев: " + yearAmount);
+
+        // зАДАЧА 2
+        double monthlyDeposit = 20000;
+        double monthlyInterest = 0.02; // 2%
+        int months = 24;
+        double total = 0;
+
+        for (int i = 1; i <= months; i++) {
+            total += total * monthlyInterest; // начисление процентов
+            total += monthlyDeposit;          // ежемесячный вклад
+        }
+
+        System.out.printf("Сумма вклада через 2 года: %.2f рублей\n", total);
+
+        // Задача 3
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("Умножаем 5*" + i + "=" + 5 * i);
+        }
+
+        // Task 4
+        int i = 0;
+        yearAmount = 0;
+        while (i!=12){
+            i++;
+            yearAmount += salary;
+        }
+        System.out.println("Заработал за 12 месяцев (циклы whle) : " + yearAmount);
+
+        // Task 5
+        int monthlyDeposit2 = 25000;
+        int goal = 5_000_000;
+        int total2 = 0;
+        int month = 0;
+
+        while (total2 < goal) {
+            month++;
+            total2 += monthlyDeposit2;
+
+            // Как требует задача можем выводить помесячно
+            //System.out.printf("Месяц %d, сумма накоплений равна %d рублей\n", month, total2);
+
+        }
+        System.out.printf("Месяцев %d, сумма накоплений равна %d рублей\n", month, total2);
+
+
+        // Task 6
+
+        // Числа от 1 до 10 через while
+        int j = 1;
+        while (j <= 10) {
+            System.out.print(j + " ");
+            j++;
+        }
+
+        System.out.println();
+
+        // Числа от 10 до 1 через for
+        for (int k = 10; k >= 1; k--) {
+            System.out.print(k + " ");
+        }
+        System.out.println();
+
+        //Task 7
+        int population = 25_000_000;
+        double birthRate = 17 / 1000.0;
+        double deathRate = 8 / 1000.0;
+        int years = 6;
+
+        for (int year = 1; year <= years; year++) {
+            int born = (int) (population * birthRate);
+            int died = (int) (population * deathRate);
+            population = population + born - died;
+
+            System.out.printf("Год %d, численность населения составляет %d\n", year, population);
+        }
+
+        // Task 8
+        double monthlyDeposit4 = 60000;
+        double monthlyInterest4 = 0.02; // 2%
+        double goal4 = 20_000_000;
+        double total4 = 0;
+        int month4 = 0;
+
+        while (total4 < goal4) {
+            month4++;
+            total4 += total4 * monthlyInterest4; // процент на накопления
+            total4 += monthlyDeposit4;           // ежемесячный вклад
+
+            //System.out.printf("Месяц %d, сумма накоплений равна %.2f рублей\n", month4, total4);
+        }
+        System.out.printf("Месяц %d, сумма накоплений равна %.2f рублей\n", month4, total4);
+        System.out.printf("Всего месяцев понадобилось: %d\n", month4);
+
+        // Task 9
+        /*
+        * Видоизмените задачу 7 таким образом, чтобы в консоль выводились не все месяцы подряд,
+        * а только каждый двенадцатый. Должны быть видны накопления за 12, 24 36-й и следующие месяцы.
+        *
+        * НЕ могу понять в чем разница, 12 месяцев = 1 год.......
+        * */
+        int population9 = 25_000_000;
+        double birthRate9 = 17 / 1000.0;
+        double deathRate9 = 8 / 1000.0;
+        int totalMonths9 = 6 * 12; // 6 лет = 72 месяца
+
+        for (int month9 = 1; month9 <= totalMonths9; month9++) {
+            int born9 = (int) (population9 * birthRate9 / 12);  // делим на 12 — ежемесячная рождаемость
+            int died9 = (int) (population9 * deathRate9 / 12);  // делим на 12 — ежемесячная смертность
+            population9 = population9 + born9 - died9;
+
+            if (month9 % 12 == 0) {
+                System.out.printf("Месяц %d, численность населения составляет %d\n", month9, population9);
+            }
+        }
+
+        //Task 10
+        int currentYear10 = 2024;
+        int startPeriod10 = currentYear10 - 200;  // 1824
+        int endPeriod10 = currentYear10 + 100;    // 2124
+        int cometPeriod10 = 79;
+
+        for (int year10 = 0; year10 <= endPeriod10; year10 += cometPeriod10) {
+            if (year10 >= startPeriod10) {
+                System.out.println(year10);
+            }
+        }
+
+        // Task 11
+        /*
+        * Задача 11.
+        Дано 6 целых чисел. Вычислите их сумму.
+        * !!!!! - Напишите программу, использующую наименьшее число переменных.
+        * */
+        int sum11 = 5 + 12 + -3 + 8 + 7 + 10;
+        System.out.println("Сумма чисел: " + sum11);
+
+
+
+
+        // Task 11 вариант 1
+        Scanner scanner12 = new Scanner(System.in);
+
+        System.out.println("Программа считает количество О!");
+        System.out.println("Введите сколько чисел N желаете вводить");
+        int n12 = scanner12.nextInt();
+        int zeroCount12 = 0;
+
+        for (int q = 0; q < n12; q++) {
+            System.out.println("Введите N");
+            int number12 = scanner12.nextInt();
+            if (number12 == 0) {
+                zeroCount12++;
+            }
+        }
+
+        System.out.println("Количество нулей: " + zeroCount12);
+
+        // Task 11 вариант 2
+        int zeroDigits12 = 0;
+
+        for (int qw = 0; qw < n12; qw++) {
+            int number12 = Math.abs(scanner12.nextInt()); // убираем знак минус
+
+            if (number12 == 0) {
+                zeroDigits12++; // число 0 содержит 1 цифру 0
+            } else {
+                while (number12 > 0) {
+                    if (number12 % 10 == 0) {
+                        zeroDigits12++;
+                    }
+                    number12 /= 10;
+                }
+            }
+        }
+
+        System.out.println("Количество цифр 0: " + zeroDigits12);
+    }
+
 
 }
