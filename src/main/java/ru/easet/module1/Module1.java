@@ -622,7 +622,7 @@ public class Module1 {
         // Task 11 вариант 1
         Scanner scanner12 = new Scanner(System.in);
 
-        System.out.println("Программа считает количество О!");
+        System.out.println("Программа считает количество О! вариант 1 ");
         System.out.println("Введите сколько чисел N желаете вводить");
         int n12 = scanner12.nextInt();
         int zeroCount12 = 0;
@@ -635,12 +635,15 @@ public class Module1 {
             }
         }
 
-        System.out.println("Количество нулей: " + zeroCount12);
+        System.out.println("Количество НУЛЕЙ: " + zeroCount12);
 
         // Task 11 вариант 2
         int zeroDigits12 = 0;
+        System.out.println("Программа считает количество О!  вариант 2");
+        System.out.println("Вы ввели "+ n12 + "из прошлого варианта");
 
         for (int qw = 0; qw < n12; qw++) {
+            System.out.println("Введите N");
             int number12 = Math.abs(scanner12.nextInt()); // убираем знак минус
 
             if (number12 == 0) {
@@ -655,7 +658,7 @@ public class Module1 {
             }
         }
 
-        System.out.println("Количество цифр 0: " + zeroDigits12);
+        System.out.println("Количество ЦИФР 0: " + zeroDigits12);
     }
 
 
