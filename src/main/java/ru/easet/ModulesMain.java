@@ -3,7 +3,7 @@ package ru.easet;
 
 import ru.easet.module1.Module1;
 
-public class Main {
+public class ModulesMain {
     public static void main(String[] args) {
 
         var module1 = new Module1();
@@ -13,6 +13,6 @@ public class Main {
 
         //module1.PracticalTask_1_3(); // Практические задания 1.3
 
-        module1.PracticalTask_1_4(); // Практические задания 1.4
+        //module1.PracticalTask_1_4(); // Практические задания 1.4
     }
 }
