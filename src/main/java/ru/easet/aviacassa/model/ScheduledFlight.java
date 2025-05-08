@@ -11,6 +11,11 @@ public class ScheduledFlight extends Flight {
     private double basePriceEconomy;
     private double basePriceBusiness;
 
+    // Дефолтный конструктор для Jackson
+    public ScheduledFlight() {
+        super();
+    }
+
     /**
      * @param flightNumber       номер рейса
      * @param departureCity      город отправления

@@ -1,5 +1,8 @@
 package ru.easet.aviacassa.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +11,15 @@ import java.util.Map;
 /**
  * Абстрактный класс для рейса.
  */
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "flightType",
+        defaultImpl = ScheduledFlight.class
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = ScheduledFlight.class, name = "scheduled")
+})
 public abstract class Flight {
     protected String flightNumber;
     protected String departureCity;
@@ -15,6 +27,12 @@ public abstract class Flight {
     protected LocalDateTime departureDateTime;
     protected int totalSeats;
     protected Map<String, Integer> seatsByClass;
+
+
+    // Jackson-совместимый конструктор без параметров
+    public Flight() {
+        this.seatsByClass = new HashMap<>();
+    }
 
     /**
      * @param flightNumber       номер рейса
@@ -53,4 +71,14 @@ public abstract class Flight {
         }
         return false;
     }
+
+
+    // Для Jackson
+    public void setSeatsByClass(Map<String, Integer> seatsByClass) {
+        this.seatsByClass = new HashMap<>(seatsByClass);
+        this.totalSeats = seatsByClass.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
 }
