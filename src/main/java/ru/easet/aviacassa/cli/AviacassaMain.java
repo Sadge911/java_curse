@@ -2,9 +2,9 @@ package ru.easet.aviacassa.cli;
 
 import ru.easet.aviacassa.model.Crew;
 import ru.easet.aviacassa.model.Flight;
+import ru.easet.aviacassa.model.FlightTicket;
 import ru.easet.aviacassa.model.Passenger;
 import ru.easet.aviacassa.model.ScheduledFlight;
-import ru.easet.aviacassa.search.FlightSearchImpl;
 import ru.easet.aviacassa.system.TicketBookingSystem;
 
 import java.time.LocalDate;
@@ -18,34 +18,56 @@ public class AviacassaMain {
         Scanner scanner = new Scanner(System.in);
         TicketBookingSystem system = new TicketBookingSystem();
 
-        // Пример добавления рейса
-        Map<String, Integer> seats = new HashMap<>();
-        seats.put("Economy", 100);
-        seats.put("Business", 20);
-        Crew crew = new Crew("Иванов Иван", "Королёв Александр", Arrays.asList("Никитина Марина", "Ломцева Галина"));
-        ScheduledFlight sampleFlight = new ScheduledFlight(
-                "SU100", "Москва", "Париж",
-                LocalDateTime.of(2025, 6, 15, 10, 30), seats, crew, 100.0, 250.0);
-        system.addFlight(sampleFlight);
+        // Пример добавления рейса при старте
+        //todo Нет проверок на 2й такой же рейс (дубль)
+//
+//        Map<String, Integer> seats = new HashMap<>();
+//        seats.put("Economy", 100);
+//        seats.put("Business", 20);
+//        Crew crew = new Crew(
+//                "Иванов Иван",
+//                "Королёв Александр",
+//                Arrays.asList("Никитина Марина", "Ломцева Галина")
+//        );
+//        ScheduledFlight sampleFlight = new ScheduledFlight(
+//                "SU100",
+//                "Москва",
+//                "Париж",
+//                LocalDateTime.of(2025, 6, 15, 10, 30),
+//                seats,
+//                crew,
+//                100.0,
+//                250.0
+//        );
+//        system.addFlight(sampleFlight);
 
         while (true) {
             System.out.println("\n=== Авиакасса ===");
             System.out.println("1. Добавить рейс");
             System.out.println("2. Поиск рейсов");
             System.out.println("3. Купить билет");
-            System.out.println("4. Выход");
+            System.out.println("4. Показать все рейсы");
+            System.out.println("5. Показать все проданные билеты");
+            System.out.println("6. Выход");
             System.out.print("Выберите опцию: ");
-            int choice = Integer.parseInt(scanner.nextLine());
+
+            int choice;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка ввода. Введите цифру от 1 до 6.");
+                continue;
+            }
 
             switch (choice) {
                 case 1:
+                    // Добавление нового рейса
                     System.out.print("Номер рейса: ");
                     String fn = scanner.nextLine();
                     System.out.print("Город отправления: ");
                     String dep = scanner.nextLine();
                     System.out.print("Город прибытия: ");
                     String arr = scanner.nextLine();
-                    // разделяем ввод даты и времени
                     System.out.print("Дата вылета (YYYY-MM-DD): ");
                     LocalDate depDate = LocalDate.parse(scanner.nextLine());
                     System.out.print("Время вылета (HH:MM): ");
@@ -61,31 +83,39 @@ public class AviacassaMain {
                     newSeats.put("Business", biz);
 
                     System.out.print("Имя пилота: ");
-                    String pil = scanner.nextLine();
+                    String pilot = scanner.nextLine();
                     System.out.print("Имя второго пилота: ");
-                    String cop = scanner.nextLine();
+                    String copilot = scanner.nextLine();
                     System.out.print("Стюарды через запятую: ");
-                    List<String> ats = Arrays.asList(scanner.nextLine().split(","));
-                    Crew newCrew = new Crew(pil, cop, ats);
+                    List<String> attendants = Arrays.asList(scanner.nextLine().split(","));
+                    Crew newCrew = new Crew(pilot, copilot, attendants);
 
                     System.out.print("Базовая цена Economy: ");
                     double bpE = Double.parseDouble(scanner.nextLine());
                     System.out.print("Базовая цена Business: ");
                     double bpB = Double.parseDouble(scanner.nextLine());
 
-                    system.addFlight(new ScheduledFlight(fn, dep, arr, dt, newSeats, newCrew, bpE, bpB));
+                    ScheduledFlight newFlight = new ScheduledFlight(
+                            fn, dep, arr, dt, newSeats, newCrew, bpE, bpB
+                    );
+                    system.addFlight(newFlight);
                     System.out.println("Рейс добавлен.");
                     break;
+
                 case 2:
+                    // Поиск рейсов по параметрам
                     System.out.print("Город отправления: ");
-                    dep = scanner.nextLine();
+                    String sDep = scanner.nextLine();
                     System.out.print("Город прибытия: ");
-                    arr = scanner.nextLine();
+                    String sArr = scanner.nextLine();
                     System.out.print("Дата полета (YYYY-MM-DD): ");
-                    LocalDate ld = LocalDate.parse(scanner.nextLine());
+                    LocalDate travelDate = LocalDate.parse(scanner.nextLine());
                     System.out.print("Класс билета (Economy/Business): ");
-                    String tc = scanner.nextLine();
-                    List<Flight> found = system.findSuitableFlights(dep, arr, ld, tc);
+                    String tClass = scanner.nextLine();
+
+                    List<Flight> found = system.findSuitableFlights(
+                            sDep, sArr, travelDate, tClass
+                    );
                     if (found.isEmpty()) {
                         System.out.println("Рейсы не найдены.");
                     } else {
@@ -94,7 +124,9 @@ public class AviacassaMain {
                         }
                     }
                     break;
+
                 case 3:
+                    // Покупка билета
                     System.out.print("Имя пассажира: ");
                     String name = scanner.nextLine();
                     System.out.print("Дата рождения (YYYY-MM-DD): ");
@@ -104,10 +136,8 @@ public class AviacassaMain {
                     Passenger p = new Passenger(name, bd, pass);
 
                     System.out.print("Номер рейса: ");
-                    String sf = scanner.nextLine();
-
-                    // Ищем рейс по номеру
-                    Optional<Flight> opt = system.findFlightByNumber(sf);
+                    String flightNum = scanner.nextLine();
+                    Optional<Flight> opt = system.findFlightByNumber(flightNum);
                     if (opt.isEmpty() || !(opt.get() instanceof ScheduledFlight)) {
                         System.out.println("Рейс не найден.");
                         break;
@@ -115,16 +145,50 @@ public class AviacassaMain {
                     ScheduledFlight flightToBook = (ScheduledFlight) opt.get();
 
                     System.out.print("Класс билета (Economy/Business): ");
-                    String cd = scanner.nextLine();
-                    system.sellTicket(p, flightToBook, cd, LocalDate.now());
+                    String ticketClass = scanner.nextLine();
+                    system.sellTicket(p, flightToBook, ticketClass, LocalDate.now());
                     break;
+
                 case 4:
+                    // Показать все рейсы
+                    List<Flight> allFlights = system.getAllFlights();
+                    if (allFlights.isEmpty()) {
+                        System.out.println("Рейсов пока нет.");
+                    } else {
+                        System.out.println("Список всех рейсов:");
+                        for (Flight f : allFlights) {
+                            system.displayFlightInfo(f);
+                        }
+                    }
+                    break;
+
+                case 5:
+                    // Показать все проданные билеты
+                    List<FlightTicket> allTickets = system.getAllTickets();
+                    if (allTickets.isEmpty()) {
+                        System.out.println("Билетов пока нет.");
+                    } else {
+                        System.out.println("Список проданных билетов:");
+                        for (FlightTicket t : allTickets) {
+                            System.out.printf(
+                                    "Пассажир: %s, Рейс: %s, Класс: %s, Цена: %.2f, Дата покупки: %s%n",
+                                    t.getPassenger().getName(),
+                                    t.getFlight().getFlightNumber(),
+                                    t.getTicketClass(),
+                                    t.getPrice(),
+                                    t.getPurchaseDate()
+                            );
+                        }
+                    }
+                    break;
+
+                case 6:
                     System.out.println("Выход.");
                     System.exit(0);
+
                 default:
-                    System.out.println("Неверный выбор.");
+                    System.out.println("Неверный выбор. Попробуйте ещё раз.");
             }
         }
     }
-
 }
