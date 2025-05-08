@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:controller="ru.easet.aviacassa.ui.controller.FlightDetailsController"
+          hgap="10" vgap="10">
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <Label text="Номер рейса:"         GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfNumber"        GridPane.rowIndex="0" GridPane.columnIndex="1" editable="false"/>
+
+    <Label text="Откуда:"             GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfDepartureCity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <Label text="Куда:"               GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfArrivalCity"   GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Label text="Дата вылета:"        GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <DatePicker fx:id="dpDate"         GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <Label text="Время (HH:MM):"      GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfTime"         GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+    <Label text="Цена Economy:"       GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfPriceEco"     GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+    <Label text="Цена Business:"      GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfPriceBiz"     GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+    <Label text="Проданные билеты:"   GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+    <TableView fx:id="ticketsTable" prefHeight="200" prefWidth="400"
+               GridPane.rowIndex="8" GridPane.columnIndex="0" GridPane.columnSpan="2">
+        <columns>
+            <TableColumn fx:id="colPassenger" text="Пассажир" prefWidth="150"/>
+            <TableColumn fx:id="colClass"     text="Класс"    prefWidth="80"/>
+            <TableColumn fx:id="colPrice"     text="Цена"     prefWidth="80"/>
+            <TableColumn fx:id="colDate"      text="Дата"     prefWidth="90"/>
+        </columns>
+    </TableView>
+
+    <Button text="Сохранить" onAction="#onSave"
+            GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+    <Button text="Закрыть"   onAction="#onClose"
+            GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+</GridPane>

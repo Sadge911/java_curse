@@ -18,9 +18,10 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
- * Система бронирования и хранения рейсов и билетов.
+ * Система бронирования, поиска и хранения рейсов и билетов.
  */
 public class TicketBookingSystem {
     private final FlightRepository flightRepo;
@@ -29,71 +30,65 @@ public class TicketBookingSystem {
     private final List<Flight> flights;
     private final List<FlightTicket> tickets;
 
-    private final TicketPricingStrategy advanceStrategy = new AdvancePurchasePricingStrategy();
-    private final TicketPricingStrategy lastMinuteStrategy = new LastMinutePricingStrategy();
-    private final PassengerVerification verification = new AdultPassengerVerification();
+    private final TicketPricingStrategy advanceStrategy;
+    private final TicketPricingStrategy lastMinuteStrategy;
+    private final PassengerVerification verification;
     private final FlightSearch search;
 
     /**
-     * При создании загружает все рейсы и билеты из JSON-файлов.
+     * При инициализации загружает все данные из JSON-файлов.
      */
     public TicketBookingSystem() {
         this.flightRepo = new FlightRepository();
         this.ticketRepo = new TicketRepository();
-
         this.flights = flightRepo.load();
         this.tickets = ticketRepo.load();
+
+        // вычитает из каждого рейса уже проданные билеты:
+        for (FlightTicket ticket : tickets) {
+            findFlightByNumber(ticket.getFlight().getFlightNumber())
+                    .ifPresent(flight -> flight.reserveSeat(ticket.getTicketClass()));
+        }
+
+        this.advanceStrategy = new AdvancePurchasePricingStrategy();
+        this.lastMinuteStrategy = new LastMinutePricingStrategy();
+        this.verification = new AdultPassengerVerification();
         this.search = new FlightSearchImpl(flights);
     }
 
     /**
-     * Добавляет новый рейс и сохраняет весь список в файл.
-     *
-     * @param flight новый рейс
+     * Добавляет новый рейс и сразу сохраняет весь список в файл.
      */
-    public void addFlight(ScheduledFlight flight) {
-        flights.add(flight);
+    public void addFlight(ScheduledFlight newFlight) {
+        flights.add(newFlight);
         flightRepo.save(flights);
     }
 
     /**
-     * Продаёт билет, если пассажир совершеннолетний и в классе есть свободные места,
-     * сохраняет проданный билет в файл.
+     * Продаёт билет для взрослого пассажира, резервирует место,
+     * вычисляет лучшую цену и сохраняет билет.
      *
-     * @param passenger    пассажир
-     * @param flight       рейс
-     * @param ticketClass  класс билета ("Economy" или "Business")
-     * @param purchaseDate дата покупки
-     * @return объект проданного билета или null при ошибке
+     * @return проданный FlightTicket или null при ошибке
      */
     public FlightTicket sellTicket(Passenger passenger,
                                    ScheduledFlight flight,
                                    String ticketClass,
                                    LocalDate purchaseDate) {
+        // 1) проверяем возраст
         if (!verification.verify(passenger.getBirthDate())) {
-            System.out.println("Ошибка: пассажир несовершеннолетний.");
-            return null;
+            throw new IllegalArgumentException("Пассажир несовершеннолетний.");
         }
+        // 2) проверяем, есть ли место
         if (!flight.reserveSeat(ticketClass)) {
-            System.out.println("Ошибка: нет доступных мест в классе " + ticketClass);
-            return null;
+            throw new IllegalArgumentException("Нет доступных мест в классе " + ticketClass);
         }
+        // 3) рассчитываем цену
         double basePrice = flight.getBasePrice(ticketClass);
-        double priceAdvance = advanceStrategy.calculatePrice(
-                basePrice,
-                purchaseDate,
-                flight.getDepartureDateTime().toLocalDate()
-        );
-        double priceLastMinute = lastMinuteStrategy.calculatePrice(
-                basePrice,
-                purchaseDate,
-                flight.getDepartureDateTime().toLocalDate()
-        );
-        double finalPrice = Math.min(priceAdvance, priceLastMinute);
+        double priceAdv = advanceStrategy.calculatePrice(basePrice, purchaseDate, flight.getDepartureDateTime().toLocalDate());
+        double priceLastMin = lastMinuteStrategy.calculatePrice(basePrice, purchaseDate, flight.getDepartureDateTime().toLocalDate());
+        double finalPrice = Math.min(priceAdv, priceLastMin);
 
-        FlightTicket ticket = new FlightTicket(
-                passenger, flight, ticketClass, finalPrice, purchaseDate
-        );
+        FlightTicket ticket = new FlightTicket(passenger, flight, ticketClass, finalPrice, purchaseDate);
         tickets.add(ticket);
         ticketRepo.save(tickets);
 
@@ -150,9 +145,26 @@ public class TicketBookingSystem {
     }
 
     /**
+     * Сохраняет текущий список рейсов в файл.
+     */
+    public void saveAllFlights() {
+        flightRepo.save(flights);
+    }
+
+
+    /**
      * Возвращает незменяемый список всех проданных билетов.
      */
     public List<FlightTicket> getAllTickets() {
         return Collections.unmodifiableList(tickets);
+    }
+
+    /**
+     * Возвращает список проданных билетов для указанного рейса.
+     */
+    public List<FlightTicket> getTicketsForFlight(String flightNumber) {
+        return tickets.stream()
+                .filter(t -> t.getFlight().getFlightNumber().equalsIgnoreCase(flightNumber))
+                .collect(Collectors.toList());
     }
 }

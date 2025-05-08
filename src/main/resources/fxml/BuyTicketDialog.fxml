@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:controller="ru.easet.aviacassa.ui.controller.BuyTicketController"
+          hgap="10" vgap="10">
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <Label text="Рейс:"                   GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfFlightNumber"     GridPane.rowIndex="0" GridPane.columnIndex="1" editable="false"/>
+
+    <Label text="Класс билета:"           GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <ComboBox fx:id="cbTicketClass"
+              GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+    <Label text="Имя пассажира:"          GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfName"             GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+    <Label text="Дата рождения:"         GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <DatePicker fx:id="dpBirthDate"       GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <Label text="Паспорт №:"              GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <TextField fx:id="tfPassport"         GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+    <Button text="Купить" onAction="#onBuy"
+            GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <Button text="Отмена" onAction="#onCancel"
+            GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+</GridPane>

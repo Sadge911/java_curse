@@ -35,11 +35,11 @@ public abstract class Flight {
     }
 
     /**
-     * @param flightNumber       номер рейса
-     * @param departureCity      город отправления
-     * @param arrivalCity        город прибытия
-     * @param departureDateTime  дата и время вылета
-     * @param seatsByClass       количество мест по классам
+     * @param flightNumber      номер рейса
+     * @param departureCity     город отправления
+     * @param arrivalCity       город прибытия
+     * @param departureDateTime дата и время вылета
+     * @param seatsByClass      количество мест по классам
      */
     public Flight(String flightNumber, String departureCity, String arrivalCity,
                   LocalDateTime departureDateTime, Map<String, Integer> seatsByClass) {
@@ -51,11 +51,43 @@ public abstract class Flight {
         this.totalSeats = seatsByClass.values().stream().mapToInt(Integer::intValue).sum();
     }
 
-    public String getFlightNumber() { return flightNumber; }
-    public String getDepartureCity() { return departureCity; }
-    public String getArrivalCity() { return arrivalCity; }
-    public LocalDateTime getDepartureDateTime() { return departureDateTime; }
-    public int getAvailableSeats(String ticketClass) { return seatsByClass.getOrDefault(ticketClass, 0); }
+    public String getFlightNumber() {
+        return flightNumber;
+    }
+
+    public String getDepartureCity() {
+        return departureCity;
+    }
+
+    public String getArrivalCity() {
+        return arrivalCity;
+    }
+
+    public LocalDateTime getDepartureDateTime() {
+        return departureDateTime;
+    }
+
+    /**
+     * Возвращает оставшееся число мест в данном классе.
+     */
+    public int getAvailableSeats(String ticketClass) {
+        return seatsByClass.getOrDefault(ticketClass, 0);
+    }
+
+    /**
+     * Публичный геттер для Jackson и для UI
+     */
+    public Map<String, Integer> getSeatsByClass() {
+        return seatsByClass;
+    }
+
+    /**
+     * Публичный сеттер, чтобы Jackson мог заполнить это поле из JSON
+     */
+    public void setSeatsByClass(Map<String, Integer> seatsByClass) {
+        this.seatsByClass = seatsByClass;
+    }
+
 
     /**
      * Резервирует место в указанном классе.
@@ -73,12 +105,14 @@ public abstract class Flight {
     }
 
 
-    // Для Jackson
-    public void setSeatsByClass(Map<String, Integer> seatsByClass) {
-        this.seatsByClass = new HashMap<>(seatsByClass);
-        this.totalSeats = seatsByClass.values().stream()
-                .mapToInt(Integer::intValue)
-                .sum();
-    }
+    /**
+     * Возвращает базовую цену по классу билета.
+     */
+    public abstract double getBasePrice(String ticketClass);
+
+    /**
+     * Устанавливает базовую цену по классу билета.
+     */
+    public abstract void setBasePrice(String ticketClass, double price);
 
 }
