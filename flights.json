@@ -1,0 +1,142 @@
+[
+  {
+    "flightNumber": "SU104",
+    "departureCity": "Сочи",
+    "arrivalCity": "Берлин",
+    "departureDateTime": "2025-09-05T08:20:00",
+    "crew": {
+      "pilot": "Николай Смирнов",
+      "coPilot": "Евгений Орлов",
+      "attendants": [
+        "Оксана Белова",
+        "Мария Кузьмина"
+      ]
+    }
+  },
+  {
+    "flightNumber": "SU105",
+    "departureCity": "Владивосток",
+    "arrivalCity": "Токио",
+    "departureDateTime": "2025-10-12T14:50:00",
+  "crew" : {
+      "pilot": "Константин Лебедев",
+      "coPilot": "Иван Громов",
+      "attendants": [
+        "Анастасия Соколова",
+        "Кристина Павлова"
+      ]
+    }
+  },
+  {
+    "flightNumber": "SU106",
+    "departureCity": "Красноярск",
+    "arrivalCity": "Дубай",
+    "departureDateTime": "2025-11-03T23:10:00",
+    "crew": {
+      "pilot": "Павел Федоров",
+      "coPilot": "Максим Волков",
+      "attendants": [
+        "Екатерина Зайцева",
+        "Ольга Морозова"
+      ]
+  }
+  },
+  {
+    "flightNumber": "SU107",
+    "departureCity": "Санкт-Петербург",
+    "arrivalCity": "Рим",
+    "departureDateTime": "2025-07-21T06:45:00",
+    "crew": {
+      "pilot": "Александр Никитин",
+      "coPilot": "Дмитрий Сидоров",
+      "attendants": [
+        "Татьяна Лебедева",
+        "Ирина Алексеева"
+      ]
+    }
+  },
+  {
+    "flightNumber": "SU108",
+    "departureCity": "Казань",
+    "arrivalCity": "Стамбул",
+    "departureDateTime": "2025-08-18T17:30:00",
+    "crew": {
+      "pilot": "Владимир Михайлов",
+      "coPilot": "Юрий Давыдов",
+      "attendants": [
+        "Наталья Борисова",
+        "Людмила Сергеева"
+      ]
+    }
+  },
+  {
+    "flightNumber": "SU109",
+    "departureCity": "Новосибирск",
+    "arrivalCity": "Пекин",
+    "departureDateTime": "2025-09-10T12:00:00",
+    "crew": {
+      "pilot": "Роман Киселёв",
+      "coPilot": "Сергей Романов",
+      "attendants": [
+        "Евгения Николаева",
+        "Марина Егоровa"
+      ]
+    }
+  },
+  {
+    "flightNumber": "SU110",
+    "departureCity": "Екатеринбург",
+    "arrivalCity": "Париж",
+    "departureDateTime": "2025-10-01T20:15:00",
+    "crew": {
+      "pilot": "Виктор Петров",
+      "coPilot": "Игорь Смирнов",
+      "attendants": [
+        "Анна Захарова",
+        "Оксана Литвинова"
+      ]
+    }
+  },
+  {
+    "flightNumber": "SU111",
+    "departureCity": "Нижний Новгород",
+    "arrivalCity": "Лондон",
+    "departureDateTime": "2025-11-25T09:05:00",
+    "crew": {
+      "pilot": "Денис Ковалёв",
+      "coPilot": "Евгений Ершов",
+      "attendants": [
+        "Светлана Орлова",
+        "Мария Васильева"
+      ]
+    }
+  },
+  {
+    "flightNumber": "SU112",
+    "departureCity": "Уфа",
+    "arrivalCity": "Анкара",
+    "departureDateTime": "2025-12-08T15:40:00",
+    "crew": {
+      "pilot": "Артём Воробьёв",
+      "coPilot": "Борис Шестаков",
+      "attendants": [
+        "Елена Крылова",
+        "Татьяна Мельникова"
+      ]
+    }
+  },
+  {
+    "flightNumber": "SU113",
+    "departureCity": "Ростов-на-Дону",
+    "arrivalCity": "Лиссабон",
+    "departureDateTime": "2025-07-30T22:55:00",
+    "crew": {
+      "pilot": "Михаил Кузнецов",
+      "coPilot": "Андрей Семёнов",
+      "attendants": [
+        "Ольга Фёдорова",
+        "Екатерина Соколова"
+      ]
+    }
+  }
+]
